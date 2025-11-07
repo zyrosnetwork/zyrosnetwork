@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zyros Network | Influencer Marketing Media — Designed & Developed by Mohammad Asad Khan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Poppins',sans-serif;background:#000;color:#fff;overflow-x:hidden;scroll-behavior:smooth}
+    section{min-height:100vh;padding:120px 20px;text-align:center}
+    html{scroll-behavior:smooth}
+
+    /* Splash */
+    #splash{position:fixed;inset:0;display:flex;justify-content:center;align-items:center;background:#000;z-index:9999;animation:fadeOut 3.5s ease 3s forwards;}
+    #splash img{width:220px;animation:glow 3s ease forwards;}
+    @keyframes glow{0%{opacity:0;transform:scale(.3)}40%{opacity:1;transform:scale(1.05);filter:drop-shadow(0 0 25px #ffb347)}100%{opacity:1;transform:scale(1)}}
+    @keyframes fadeOut{to{opacity:0;visibility:hidden;pointer-events:none}}
+
+    /* Background */
+    video.bg{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.4);z-index:-2}
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:-1}
+
+    /* Navbar */
+    header{position:fixed;top:0;left:0;width:100%;padding:20px 60px;display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.5);backdrop-filter:blur(10px);z-index:1000}
+    .logo{display:flex;align-items:center;gap:10px}
+    .logo img{height:55px}
+    .logo h1{background:linear-gradient(90deg,#ffb347,#b687ff,#ffb347);background-size:300% 300%;
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      animation:gradient-glow 6s linear infinite;font-weight:700;text-shadow:0 0 20px rgba(255,179,71,0.4);}
+    nav ul{display:flex;list-style:none;gap:25px}
+    nav a{text-decoration:none;color:#fff;font-weight:500;position:relative;transition:.3s}
+    nav a::after{content:'';position:absolute;bottom:-4px;left:0;height:2px;width:0;
+      background:linear-gradient(90deg,#ffb347,#b687ff);transition:.3s}
+    nav a:hover::after{width:100%}
+
+    /* Social Icons */
+    .social-floating{position:fixed;top:40%;left:25px;display:flex;flex-direction:column;gap:18px;z-index:999;}
+    .social-floating a{display:flex;justify-content:center;align-items:center;width:45px;height:45px;
+      background:rgba(255,255,255,0.08);border-radius:50%;color:#fff;font-size:1.3rem;
+      transition:all 0.3s ease;box-shadow:0 0 12px rgba(182,135,255,0.2);}
+    .social-floating a:hover{background:linear-gradient(90deg,#ffb347,#b687ff);color:#000;
+      transform:scale(1.15) translateX(6px);box-shadow:0 0 20px rgba(182,135,255,0.6);}
+
+    /* Gradient Glow Headings */
+    h2.section-title, #home h2 {
+      font-size:2.5rem;
+      text-transform:uppercase;
+      background:linear-gradient(90deg,#ffb347,#b687ff,#ffb347);
+      background-size:300% 300%;
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      animation:gradient-glow 5s linear infinite;
+      font-weight:700;
+      letter-spacing:1px;
+      transition:transform 0.5s ease, text-shadow 0.5s ease;
+      text-shadow:0 0 25px rgba(255,179,71,0.4),0 0 45px rgba(182,135,255,0.25);
+    }
+    @keyframes gradient-glow {
+      0% {background-position:0% 50%;}
+      50% {background-position:100% 50%;}
+      100% {background-position:0% 50%;}
+    }
+
+    /* Highlight Text */
+    .shine-text {
+      background:linear-gradient(90deg,#ffb347,#b687ff,#ffb347);
+      background-size:300% 300%;
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      animation:gradient-glow 6s linear infinite;
+      font-weight:600;
+    }
+
+    /* Text Animation */
+    .text-entry{opacity:0;transform:translateY(50px) scale(0.95);filter:blur(8px);transition:all 1.2s ease-out;}
+    .text-entry.visible{opacity:1;transform:translateY(0) scale(1);filter:blur(0);}
+
+    /* Hero */
+    #home{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+    #home p{font-size:1.15rem;line-height:1.9;color:#ccc;max-width:850px;margin-top:10px}
+    #home img{width:70%;max-width:800px;border-radius:15px;margin-top:40px;box-shadow:0 0 25px rgba(182,135,255,0.4);transition:0.4s ease;}
+    #home img:hover{transform:scale(1.05);box-shadow:0 0 35px rgba(182,135,255,0.6)}
+
+    /* About */
+    .content-block{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:50px;margin-top:40px}
+    .content-text{flex:1;min-width:300px;text-align:left;max-width:500px}
+    .content-text p{line-height:1.8;color:#ccc;margin-bottom:15px}
+    .content-image{flex:1;min-width:300px;text-align:center}
+    .content-image img{width:100%;border-radius:15px;box-shadow:0 0 25px rgba(182,135,255,.3);transition:.5s}
+    .content-image img:hover{transform:scale(1.05)}
+
+    /* Services */
+    #services .services-box{background:rgba(255,255,255,0.08);padding:50px;border-radius:20px;box-shadow:0 0 20px rgba(182,135,255,0.3);
+      cursor:default;max-width:700px;margin:auto;margin-bottom:60px;}
+    #services .service-container {
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:40px;
+      margin-top:30px;
+    }
+    .service-detail {
+      background:rgba(255,255,255,0.08);
+      border-radius:20px;
+      padding:40px;
+      max-width:420px;
+      box-shadow:0 0 20px rgba(182,135,255,0.3);
+      transition:all 0.4s ease;
+      opacity:1;
+      text-align:center;
+    }
+    .service-detail:hover {
+      transform:translateY(-10px) scale(1.03);
+      box-shadow:0 0 30px rgba(182,135,255,0.6);
+    }
+    .service-detail img {
+      width:100%;
+      border-radius:15px;
+      margin-top:20px;
+    }
+
+    /* Service Labels */
+    .service-label {
+      font-size:1.4rem;
+      font-weight:700;
+      margin-bottom:15px;
+      text-transform:uppercase;
+      background:linear-gradient(90deg,#ffb347,#b687ff,#ffb347);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      animation:gradient-glow 5s linear infinite;
+    }
+
+    /* Team */
+    .team{display:flex;justify-content:center;flex-wrap:wrap;gap:25px;margin-top:30px}
+    .member{background:rgba(26,26,26,.9);width:260px;padding:20px;border-radius:12px;box-shadow:0 0 10px rgba(182,135,255,.3);transition:.3s}
+    .member:hover{transform:translateY(-10px);box-shadow:0 0 25px rgba(182,135,255,.5)}
+    .member div{font-size:3rem;margin-bottom:10px}
+    .member h4{color:#ffb347}
+
+    /* Contact */
+    form{max-width:600px;margin:0 auto;display:flex;flex-direction:column;gap:15px;background:rgba(20,20,20,.7);
+      padding:30px;border-radius:12px;box-shadow:0 0 15px rgba(182,135,255,.3)}
+    form input,form textarea{padding:12px;background:rgba(0,0,0,.6);border:1px solid #ffb347;color:#fff;border-radius:5px}
+    form button{padding:12px;border:none;border-radius:25px;cursor:pointer;font-weight:600;
+      background:linear-gradient(90deg,#ffb347,#b687ff);color:#fff;transition:.3s}
+    form button:hover{box-shadow:0 0 15px #b687ff;color:#000}
+    .contact-info{margin-top:25px;color:#ccc;line-height:1.8;font-size:1rem;}
+    .contact-info a{color:#ffb347;text-decoration:none;font-weight:600;}
+
+    footer{background:#000;padding:20px;text-align:center;border-top:1px solid #333;color:#777;font-size:.9rem}
+    footer .social-icons{margin-bottom:10px}
+    footer .social-icons a{display:inline-block;color:#777;font-size:1.4rem;margin:0 10px;transition:.3s}
+    footer .social-icons a:hover{color:#fff;text-shadow:0 0 10px #b687ff,0 0 20px #ffb347;transform:translateY(-3px)}
+  </style>
+</head>
+
+<body>
+  <div id="splash"><img src="logo.jpg" alt="Zyros Network Logo"></div>
+  <video class="bg" autoplay muted loop>
+    <source src="https://player.vimeo.com/external/414829403.sd.mp4?s=f9277f9f86a43b9e2d73d2d444ef0032a46e3b7c&profile_id=164&oauth2_token_id=57447761" type="video/mp4">
+  </video>
+  <div class="overlay"></div>
+
+  <header>
+    <div class="logo">
+      <img src="logo.jpg" alt="Zyros Network">
+      <h1>Zyros Network</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#case-studies">Case Studies</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="social-floating">
+    <a href="https://www.instagram.com/zyrosnetwork" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.facebook.com/zyrosnetwork" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://www.twitter.com/zyrosnetwork" target="_blank"><i class="fab fa-twitter"></i></a>
+    <a href="https://www.linkedin.com/company/zyrosnetwork" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+  </div>
+
+  <!-- HOME -->
+  <section id="home">
+    <h2 class="text-entry">We Don’t Follow Trends — We Create Them.</h2>
+    <p class="text-entry">
+      At <strong><span class="shine-text">Zyros Network</span></strong>, we redefine what it means to 
+      <span class="shine-text">influence</span>. We’re not just another marketing agency — 
+      we’re a collective of <span class="shine-text">creators</span>, <span class="shine-text">strategists</span>, 
+      and <span class="shine-text">storytellers</span> shaping how <span class="shine-text">brands</span> 
+      connect with today’s audience.
+    </p>
+    <img class="text-entry" src="https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Influencer Marketing Team">
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2 class="section-title text-entry">About</h2>
+    <div class="content-block">
+      <div class="content-text text-entry">
+        <p>
+          <span class="shine-text">Zyros Network</span> isn’t just an influencer marketing agency — 
+          it’s a <span class="shine-text">movement</span> built on <span class="shine-text">creativity</span>, 
+          <span class="shine-text">authenticity</span>, and <span class="shine-text">innovation</span>. 
+          We connect <span class="shine-text">brands</span> and <span class="shine-text">creators</span> 
+          to craft campaigns that don’t just trend — they <span class="shine-text">inspire</span>.
+        </p>
+        <p>
+          Our philosophy is simple: <span class="shine-text">real stories create real impact</span>. 
+          Every project we take on is rooted in <span class="shine-text">strategic storytelling</span> 
+          and backed by <span class="shine-text">measurable results</span>. 
+          Whether you’re a <span class="shine-text">global brand</span> or a 
+          <span class="shine-text">rising creator</span>, we help your voice stand out in the 
+          <span class="shine-text">digital crowd</span>.
+        </p>
+      </div>
+      <div class="content-image text-entry">
+        <img src="https://images.pexels.com/photos/3184302/pexels-photo-3184302.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Zyros Team Office">
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <h2 class="section-title text-entry">Services</h2>
+    <div class="services-box text-entry">
+      <h3>Our Expertise</h3>
+      <p>Discover how <span class="shine-text">Zyros Network</span> empowers <span class="shine-text">brands</span> & <span class="shine-text">creators</span> through creativity and strategy.</p>
+    </div>
+
+    <div class="service-container">
+      <div class="service-detail text-entry visible">
+        <div class="service-label">Brand</div>
+        <h3 style="color:#ffb347;">We Build Powerful Brand Stories</h3>
+        <p>We help <span class="shine-text">brands</span> connect with their audience through influencer collaborations and storytelling that drive measurable impact.</p>
+        <img src="https://images.pexels.com/photos/3183171/pexels-photo-3183171.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Brand Campaign">
+      </div>
+
+      <div class="service-detail text-entry visible">
+        <div class="service-label">Creator</div>
+        <h3 style="color:#b687ff;">We Empower Next-Gen Creators</h3>
+        <p>We help <span class="shine-text">creators</span> grow, collaborate, and thrive by connecting them with top <span class="shine-text">brands</span> and providing mentorship opportunities.</p>
+        <img src="https://images.pexels.com/photos/4050291/pexels-photo-4050291.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Creator Growth">
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE STUDIES -->
+  <section id="case-studies">
+    <h2 class="section-title text-entry">Case Studies</h2>
+    <div class="case-grid">
+      <div class="case-card text-entry">
+        <img src="https://images.pexels.com/photos/3184649/pexels-photo-3184649.jpeg?auto=compress&cs=tinysrgb&w=800" alt="GlowSkin Campaign">
+        <h3>GlowSkin Cosmetics</h3>
+        <p>Partnered with over <span class="shine-text">25 beauty influencers</span> to achieve <span class="shine-text">3.2M+ organic impressions</span> across platforms. Campaign boosted engagement by <span class="shine-text">180%</span> and created a viral community trend around self-care.</p>
+      </div>
+      <div class="case-card text-entry">
+        <img src="https://images.pexels.com/photos/3184632/pexels-photo-3184632.jpeg?auto=compress&cs=tinysrgb&w=800" alt="TechNova">
+        <h3>TechNova Launch</h3>
+        <p>Executed a bold unboxing campaign with top tech YouTubers, reaching <span class="shine-text">10M+ views</span> within two weeks. Elevated the brand’s image as the next-gen innovation leader in smart devices.</p>
+      </div>
+      <div class="case-card text-entry">
+        <img src="https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg?auto=compress&cs=tinysrgb&w=800" alt="UrbanFit">
+        <h3>UrbanFit Challenge</h3>
+        <p>Launched an influencer fitness movement involving <span class="shine-text">30 creators</span>, resulting in <span class="shine-text">40,000+ app downloads</span> and <span class="shine-text">200%</span> growth in community participation in under 3 weeks.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team">
+    <h2 class="section-title text-entry">Our Team</h2>
+    <div class="team">
+      <div class="member text-entry"><div>👨‍💼</div><h4>Mohammad Yasir Khan</h4><p>Founder & CEO</p></div>
+      <div class="member text-entry"><div>👨‍🎨</div><h4>Mohammad Asad Khan</h4><p>Founder & Creative Director</p></div>
+      <div class="member text-entry"><div>👨‍💻</div><h4>Mohammad Azhan Khan</h4><p>Founder & Marketing Head</p></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2 class="section-title text-entry">Let's Work Together</h2>
+    <form class="text-entry" onsubmit="alert('Message Sent Successfully!');return false;">
+      <input type="text" placeholder="Full Name" required>
+      <input type="email" placeholder="Email Address" required>
+      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <div class="contact-info text-entry">
+      <p>📧 Email: <a href="mailto:collab.zyrosnetwork@gmail.com">collab.zyrosnetwork@gmail.com</a></p>
+      <p>📞 Phone: <a href="tel:7275451100">7275451100</a> , <a href="tel:9511139893">9511139893</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/zyrosnetwork" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.facebook.com/zyrosnetwork" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://www.twitter.com/zyrosnetwork" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.linkedin.com/company/zyrosnetwork" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+    © 2025 Zyros Network | Designed & Developed by Mohammad Asad Khan
+  </footer>
+
+  <script>
+    const animatedEls=document.querySelectorAll('.text-entry');
+    function revealOnScroll(){
+      const wh=window.innerHeight;
+      animatedEls.forEach(el=>{
+        const top=el.getBoundingClientRect().top;
+        if(top<wh-100){el.classList.add('visible');}
+      });
+    }
+    window.addEventListener('load',()=>{
+      setTimeout(()=>{
+        const homeEls=document.querySelectorAll('#home .text-entry');
+        homeEls.forEach((el,i)=>{
+          setTimeout(()=>el.classList.add('visible'), i*400);
+        });
+      },3500);
+    });
+    window.addEventListener('scroll',revealOnScroll);
+  </script>
+</body>
+</html>
