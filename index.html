@@ -336,47 +336,51 @@
   <div id="popup" class="popup"><i></i><p></p></div>
 
   <script>
-    const form=document.getElementById('contactForm');
-    const popup=document.getElementById('popup');
-    const icon=popup.querySelector('i');
-    const msg=popup.querySelector('p');
+  const form = document.getElementById('contactForm');
+  const popup = document.getElementById('popup');
+  const icon = popup.querySelector('i');
+  const msg = popup.querySelector('p');
 
-    function showPopup(type,text){
-      popup.className='popup '+type;
-      msg.textContent=text;
-      icon.className=type==='success'?'fas fa-check-circle':'fas fa-times-circle';
-      popup.classList.add('show');
-      setTimeout(()=>popup.classList.remove('show'),3500);
-    }
+  // ✅ Popup message (same as before)
+  function showPopup(type, text) {
+    popup.className = 'popup ' + type;
+    msg.textContent = text;
+    icon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-times-circle';
+    popup.classList.add('show');
+    setTimeout(() => popup.classList.remove('show'), 3500);
+  }
 
-    form.addEventListener('submit',async(e)=>{
-      e.preventDefault();
-      const data=new FormData(form);
-      try{
-        const res=await fetch(form.action,{method:'POST',body:data,headers:{'Accept':'application/json'}});
-        if(res.ok){form.reset();showPopup('success','Message Sent Successfully! ✅');}
-        else{showPopup('error','Message Failed ❌ Try Again!');}
-      }catch{showPopup('error','Network Error ❌ Try Again!');}
+  // ✅ Form submit handler (same as before)
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    try {
+      const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+      if (res.ok) { form.reset(); showPopup('success', 'Message Sent Successfully! ✅'); }
+      else { showPopup('error', 'Message Failed ❌ Try Again!'); }
+    } catch { showPopup('error', 'Network Error ❌ Try Again!'); }
+  });
+
+  // ✅ Scroll animation for all sections
+  const animatedEls = document.querySelectorAll('.text-entry');
+  window.addEventListener('scroll', () => {
+    const wh = window.innerHeight;
+    animatedEls.forEach(el => {
+      if (el.getBoundingClientRect().top < wh - 100) {
+        el.classList.add('visible');
+      }
     });
+  });
 
-    const animatedEls=document.querySelectorAll('.text-entry');
-    window.addEventListener('scroll',()=>{
-      const wh=window.innerHeight;
-      animatedEls.forEach(el=>{
-        if(el.getBoundingClientRect().top<wh-100){el.classList.add('visible');}
-      });
-    });
-
-    // ✅ Splash screen fix - show content after animation
-    window.addEventListener("load", () => {
-      const splash = document.getElementById("splash");
-      const textEls = document.querySelectorAll(".text-entry");
-      setTimeout(() => {
-        splash.style.display = "none";
-        textEls.forEach(el => el.classList.add("visible"));
-      }, 6500);
-    });
-  </script>
+  // ✅ Splash screen logic fixed — only home section shows first
+  window.addEventListener("load", () => {
+    const splash = document.getElementById("splash");
+    setTimeout(() => {
+      splash.style.display = "none";
+      // Sirf home section ke elements visible hon
+      document.querySelectorAll("#home .text-entry").forEach(el => el.classList.add("visible"));
+    }, 3500); // 👈 Splash screen delay (change if needed)
+  });
+</script>
 </body>
 </html>
-
