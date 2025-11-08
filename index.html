@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Zyros Network | Influencer Marketing Media — Designed & Developed by Mohammad Asad Khan</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -54,7 +54,6 @@
       animation:gradient-glow 5s linear infinite;
       font-weight:700;
       letter-spacing:1px;
-      transition:transform 0.5s ease, text-shadow 0.5s ease;
       text-shadow:0 0 25px rgba(255,179,71,0.4),0 0 45px rgba(182,135,255,0.25);
     }
     @keyframes gradient-glow {
@@ -255,24 +254,41 @@
     </div>
   </section>
 
-  <!-- CASE STUDIES -->
+  <!-- CASE STUDIES (OUR PROCESS) -->
   <section id="case-studies">
-    <h2 class="section-title text-entry">Case Studies</h2>
-    <div class="case-grid">
-      <div class="case-card text-entry">
-        <img src="https://images.pexels.com/photos/3184649/pexels-photo-3184649.jpeg?auto=compress&cs=tinysrgb&w=800" alt="GlowSkin Campaign">
-        <h3>GlowSkin Cosmetics</h3>
-        <p>Partnered with over <span class="shine-text">25 beauty influencers</span> to achieve <span class="shine-text">3.2M+ organic impressions</span> across platforms. Campaign boosted engagement by <span class="shine-text">180%</span> and created a viral community trend around self-care.</p>
+    <h2 class="section-title text-entry">Our Process</h2>
+    <p class="text-entry" style="max-width:850px;margin:20px auto;color:#ccc;font-size:1.1rem;line-height:1.8;">
+      Every campaign at <span class="shine-text">Zyros Network</span> follows a clear and transparent process 
+      designed to deliver authentic growth for brands and creators.
+    </p>
+
+    <div class="case-grid" style="display:flex;flex-wrap:wrap;justify-content:center;gap:40px;margin-top:60px;">
+
+      <div class="case-card text-entry" style="background:rgba(255,255,255,0.08);border-radius:15px;padding:30px;max-width:360px;text-align:left;box-shadow:0 0 20px rgba(182,135,255,0.25);transition:all 0.4s ease;">
+        <img src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Strategy & Research" style="width:100%;border-radius:10px;margin-bottom:15px;">
+        <h3 style="color:#ffb347;font-weight:700;margin-bottom:10px;">1. Strategy & Research</h3>
+        <p style="color:#ccc;line-height:1.7;">
+          We study brand goals, audience behavior, and competition to design a 
+          data-driven influencer strategy that matches real market needs.
+        </p>
       </div>
-      <div class="case-card text-entry">
-        <img src="https://images.pexels.com/photos/3184632/pexels-photo-3184632.jpeg?auto=compress&cs=tinysrgb&w=800" alt="TechNova">
-        <h3>TechNova Launch</h3>
-        <p>Executed a bold unboxing campaign with top tech YouTubers, reaching <span class="shine-text">10M+ views</span> within two weeks. Elevated the brand’s image as the next-gen innovation leader in smart devices.</p>
+
+      <div class="case-card text-entry" style="background:rgba(255,255,255,0.08);border-radius:15px;padding:30px;max-width:360px;text-align:left;box-shadow:0 0 20px rgba(182,135,255,0.25);transition:all 0.4s ease;">
+        <img src="https://images.pexels.com/photos/1181681/pexels-photo-1181681.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Creator Selection" style="width:100%;border-radius:10px;margin-bottom:15px;">
+        <h3 style="color:#b687ff;font-weight:700;margin-bottom:10px;">2. Creator Selection</h3>
+        <p style="color:#ccc;line-height:1.7;">
+          We identify the right creators who genuinely connect with the target audience 
+          and align with the brand’s voice and values.
+        </p>
       </div>
-      <div class="case-card text-entry">
-        <img src="https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg?auto=compress&cs=tinysrgb&w=800" alt="UrbanFit">
-        <h3>UrbanFit Challenge</h3>
-        <p>Launched an influencer fitness movement involving <span class="shine-text">30 creators</span>, resulting in <span class="shine-text">40,000+ app downloads</span> and <span class="shine-text">200%</span> growth in community participation in under 3 weeks.</p>
+
+      <div class="case-card text-entry" style="background:rgba(255,255,255,0.08);border-radius:15px;padding:30px;max-width:360px;text-align:left;box-shadow:0 0 20px rgba(182,135,255,0.25);transition:all 0.4s ease;">
+        <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Campaign Execution" style="width:100%;border-radius:10px;margin-bottom:15px;">
+        <h3 style="color:#ffb347;font-weight:700;margin-bottom:10px;">3. Campaign Execution</h3>
+        <p style="color:#ccc;line-height:1.7;">
+          We manage content planning, posting schedules, and performance tracking 
+          to ensure every collaboration delivers measurable results.
+        </p>
       </div>
     </div>
   </section>
@@ -344,6 +360,16 @@
       animatedEls.forEach(el=>{
         if(el.getBoundingClientRect().top<wh-100){el.classList.add('visible');}
       });
+    });
+
+    // ✅ Splash screen fix - show content after animation
+    window.addEventListener("load", () => {
+      const splash = document.getElementById("splash");
+      const textEls = document.querySelectorAll(".text-entry");
+      setTimeout(() => {
+        splash.style.display = "none";
+        textEls.forEach(el => el.classList.add("visible"));
+      }, 6500);
     });
   </script>
 </body>
