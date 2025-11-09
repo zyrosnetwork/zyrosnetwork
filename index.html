@@ -308,20 +308,108 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <h2 class="section-title text-entry">Let's Work Together</h2>
-    <form id="contactForm" action="https://formspree.io/f/mdkpqqvb" method="POST" class="text-entry">
-      <input type="text" name="name" placeholder="Full Name" required>
-      <input type="email" name="email" placeholder="Email Address" required>
-      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-      <button type="submit" id="submitBtn">Send Message</button>
-    </form>
-    <div class="contact-info text-entry">
-      <p>📧 Email: <a href="mailto:collabs.zyrosnetwork@gmail.com">collabs.zyrosnetwork@gmail.com</a></p>
-      <p>📞 Phone: <a href="tel:7275451100">7275451100</a> , <a href="tel:9511139893">9511139893</a></p>
-    </div>
-  </section>
+  <form id="contactForm" action="https://formspree.io/f/mdkpqqvb" method="POST" class="text-entry">
+  <input type="text" name="name" placeholder="Full Name" required>
+  <input type="email" name="email" placeholder="Email Address" required>
+
+  <!-- ✅ Phone Number -->
+  <input type="tel" name="phone" placeholder="Phone Number (e.g. +91 98765 43210)" 
+         pattern="^\+?\d{7,15}$" required>
+
+  <!-- ✅ Fancy Role Dropdown -->
+  <div class="dropdown" id="roleDropdown">
+    <input type="text" id="roleDisplay" class="dropdown-display" placeholder="Select Role" readonly required>
+    <span class="dropdown-arrow">▾</span>
+    <ul class="dropdown-list">
+      <li data-value="Brand">Brand</li>
+      <li data-value="Creator">Creator</li>
+    </ul>
+    <input type="hidden" name="role" id="roleHidden" required>
+  </div>
+
+  <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+  <button type="submit" id="submitBtn">Send Message</button>
+</form>
+
+<!-- ✅ Add this CSS below your existing style tag -->
+<style>
+/* Fancy Dropdown Styling */
+.dropdown {
+  position: relative;
+  width: 100%;
+}
+.dropdown-display {
+  width: 100%;
+  padding: 12px;
+  background: rgba(0,0,0,.6);
+  border: 1px solid #ffb347;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.dropdown-arrow {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ffb347;
+  pointer-events: none;
+}
+.dropdown-list {
+  position: absolute;
+  top: 105%;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.9);
+  border: 1px solid #ffb347;
+  border-radius: 6px;
+  box-shadow: 0 4px 15px rgba(255,179,71,0.2);
+  list-style: none;
+  padding: 0;
+  margin: 5px 0 0 0;
+  display: none;
+  z-index: 1000;
+}
+.dropdown-list li {
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.dropdown-list li:hover {
+  background: linear-gradient(90deg,#ffb347,#b687ff);
+  color: #000;
+}
+.dropdown.open .dropdown-list {
+  display: block;
+}
+</style>
+
+<!-- ✅ Add this script just before your existing <script> in the bottom -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const dropdown = document.getElementById('roleDropdown');
+  const display = document.getElementById('roleDisplay');
+  const hidden = document.getElementById('roleHidden');
+  const list = dropdown.querySelector('.dropdown-list');
+
+  dropdown.addEventListener('click', (e) => {
+    dropdown.classList.toggle('open');
+  });
+
+  list.addEventListener('click', (e) => {
+    const option = e.target.closest('li');
+    if (!option) return;
+    display.value = option.textContent.trim();
+    hidden.value = option.dataset.value;
+    dropdown.classList.remove('open');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!dropdown.contains(e.target)) dropdown.classList.remove('open');
+  });
+});
+</script>
 
   <footer>
     <div class="social-icons">
@@ -384,4 +472,5 @@
 </script>
 </body>
 </html>
+
 
